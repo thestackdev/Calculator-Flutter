@@ -121,7 +121,6 @@ class _CalculatorState extends State<Calculator> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height * 0.1,
               alignment: Alignment.bottomRight,
               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Text(expression , style: TextStyle(letterSpacing: 1.0 , fontSize: 54.0 , color: Colors.white),),
