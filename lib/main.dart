@@ -6,7 +6,10 @@ import 'package:string_validator/string_validator.dart';
 void main() => runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Calculator',
-    home: Calculator()
+    home: Calculator(),
+    theme: ThemeData(
+        brightness: Brightness.dark,
+    ),
 )
 );
 
@@ -32,7 +35,9 @@ class _CalculatorState extends State<Calculator> {
         }
 
       }else if(btnText == '=') {
-        expression = result;
+
+        if(expression.length != 0) {
+          expression = result;
         result = '';
         try {
           Parser parser = Parser();
@@ -43,10 +48,12 @@ class _CalculatorState extends State<Calculator> {
         } catch (e) {
           expression = '';
           result = 'Invalid Expression';
+          }
         }
-      }else {
+      } else {
         expression = expression + btnText;
-      }
+        }
+        
     });
   }
 
@@ -68,7 +75,7 @@ class _CalculatorState extends State<Calculator> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45),
               ),
           child: Text(btnText ,
-            style: TextStyle(fontWeight: FontWeight.bold , fontSize: 23.0 , color: Colors.white),)
+            style: TextStyle( fontWeight: FontWeight.bold , fontSize: 19.0 , color: Colors.white),)
           ,onPressed: () {
           btnLogic(btnText);
           if(expression.contains('/') || expression.contains('+') || expression.contains('-') || expression.contains('%') || expression.contains('x')) {
@@ -91,6 +98,22 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      centerTitle: true,
+        title: Text('Calculator' , style: TextStyle(fontSize: 27.0 , letterSpacing: 1.0),),
+              flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+                colors: <Color>[
+              Colors.white.withOpacity(0.3),
+              Colors.deepOrange.withOpacity(0.7),
+              Colors.deepOrangeAccent.withOpacity(0.3),
+            ]),         
+         ),        
+     ),
+ ),
       body: Container(
         color: Colors.black,
         alignment: Alignment.bottomCenter,
@@ -98,17 +121,18 @@ class _CalculatorState extends State<Calculator> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Container(
+              height: MediaQuery.of(context).size.height * 0.1,
               alignment: Alignment.bottomRight,
-              padding: EdgeInsets.fromLTRB(0, 18, 10, 18),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Text(expression , style: TextStyle(letterSpacing: 1.0 , fontSize: 54.0 , color: Colors.white),),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 18),
             Container(
               alignment: Alignment.bottomRight,
-              padding: EdgeInsets.fromLTRB(0, 18, 10, 18),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Text(result , style: TextStyle(letterSpacing: 1.0 , fontSize: 27.0 , color: Colors.white), overflow: TextOverflow.fade,),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 18),
             Row(
               children: <Widget>[
                 SizedBox(width: 10),
